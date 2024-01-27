@@ -1,2 +1,0 @@
-# dashboard
-administration dashboard
