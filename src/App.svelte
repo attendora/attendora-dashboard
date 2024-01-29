@@ -1,20 +1,52 @@
- <script lang="ts">
+<script lang="ts">
     import axios from 'axios';
+    import {beforeUpdate, onMount} from 'svelte';
     import {signin, loggedIn, teacherId, sideBarSwitch}  from './lib/store.js';
     import Signup from './lib/signup.svelte';
     import Login from './lib/login.svelte';
     import Sidebar from './lib/sidebar.svelte';
     import FiliereCount from './lib/dashboard/filiereCount.svelte';
-  import StudentCount from './lib/dashboard/studentCount.svelte';
+    import StudentCount from './lib/dashboard/studentCount.svelte';
+    let needsrefresh:boolean = false;
     let promise:Promise<void>;
     let authServer:string =import.meta.env.VITE_AUTH_SERVER;
-    let apiServer:string =import.meta.env.VITE_API_SERVER;   
-    
+    let apiServer:string =import.meta.env.VITE_API_SERVER;
+
+    beforeUpdate(
+        async () => {
+        if ($loggedIn){
+            try {
+                const verify = await axios.post(authServer+"/expiry",{
+                    token: localStorage.getItem('token')
+                });
+                } catch (Error: any) {
+                    if (Error.message.includes(401)) {
+                        needsrefresh = true;
+                        try {
+                            const refresh = await axios.post(authServer+'/token', {
+                                rftoken : localStorage.getItem('refreshToken'),
+                                teacherId : localStorage.getItem('teacherId')
+                            });
+                            if (refresh.status == 200) {
+                            localStorage.setItem('token', refresh.data.accessToken);
+                            needsrefresh = false;
+                            //window.location.reload();
+                            } else {
+                                alert("please login again");
+                            }
+                        } catch (error: any) {
+                            alert("please login again" + error.message);
+                        }
+                    }
+                }
+        }
+    }
+    );
+
     signin.set(true);
 
     $:loginswitch = !$signin;
     loggedIn.set(localStorage.getItem('token') != null && localStorage.getItem('refreshToken') != null && localStorage.getItem('teacherId') != null);
-
 
     async function logout() {
         const response = await axios.post(authServer+'/logout', {
@@ -36,10 +68,10 @@
 
 <style>
     .identification {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem;
+        text-align: center;
     }
     .dashboard {
         width: 100%;
@@ -99,6 +131,7 @@
     </a>
     </div>
 {:else}
+    {#if !needsrefresh}
     <div class="dashboard">
         <div class="sidebar">
             {#await axios.post(apiServer+'/teachername', {
@@ -155,5 +188,6 @@
             </div>
         </div>
     </div>
+    {/if}
 {/if}
 

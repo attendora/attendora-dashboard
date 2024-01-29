@@ -19,11 +19,15 @@
 
     async function signup() {
 
-        if (!teacherName || !teacherLastName || !teacherEmail || !password || !rfid || !verificationCode) {
+        if (!teacherName || !teacherLastName || !teacherEmail || !password || !rfid ) {
             incomplete = true;
             return;
         }
         incomplete = false;
+        if  (!verificationCode || verificationCode == "000000") {
+            verificationCode = "000000";
+            return;
+        }
         if (!teacherEmail.includes("@ensam-casa.ma")) {
             noemail = true;
             return;
@@ -73,11 +77,14 @@
 </style>
 
 <div class="signup">
+    {#if verificationCode=="000000"}
+        <p class="incomplete">Please verify your email</p>
+    {/if}
     {#if incomplete}
         <p class="incomplete">Please fill out all fields</p>
     {/if}
     {#if noemail}
-        <p class="incomplete">Please inter a valid ensam email</p>
+        <p class="incomplete">Please enter a valid ensam email</p>
     {/if}
     {#await promise}
         Signing up...
