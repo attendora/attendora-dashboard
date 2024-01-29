@@ -108,7 +108,7 @@
 
 {#if (!$loggedIn) }
     <div class="identification">
-    <h1>ATTENDORA TEST DASHBOARD</h1>
+    <h1>ATTENDORA TEST 2 DASHBOARD</h1>
     <br>
     <br>
     {#if !$signin }
