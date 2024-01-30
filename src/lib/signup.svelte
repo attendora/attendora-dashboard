@@ -52,6 +52,7 @@
         } catch (error: any) {
             if (error.message.includes("code")) {
                 status = 405;
+                emailstatus = false;
             } else {
                 alert(error.message);
             }
