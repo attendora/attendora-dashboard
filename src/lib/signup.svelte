@@ -33,7 +33,8 @@
             return;
         }
         noemail = false;
-        const response = await axios.post(authServer+'/signup',{
+        try{
+            const response = await axios.post(authServer+'/signup',{
             "teacherName": teacherName,
             "teacherLastName": teacherLastName,
             "teacherEmail": teacherEmail,
@@ -46,8 +47,14 @@
         if (response.status == 200  ) {
             signin.set(true);
             teacherId.set(data.teacherId);
-        } else {
-            alert(data.message);
+        }
+        
+        } catch (error: any) {
+            if (error.message.includes("code")) {
+                status = 405;
+            } else {
+                alert(error.message);
+            }
         }
     }
 
@@ -85,6 +92,9 @@
     {/if}
     {#if noemail}
         <p class="incomplete">Please enter a valid ensam email</p>
+    {/if}
+    {#if status==405}
+        <p class="incomplete">Wrong or expired verification Code</p>
     {/if}
     {#await promise}
         Signing up...
