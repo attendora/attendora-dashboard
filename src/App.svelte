@@ -30,12 +30,20 @@
                             if (refresh.status == 200) {
                             localStorage.setItem('token', refresh.data.accessToken);
                             needsrefresh = false;
-                            //window.location.reload();
                             } else {
                                 alert("please login again");
                             }
                         } catch (error: any) {
-                            alert("please login again" + error.message);
+                            if (error.message.includes(404)) {
+                                localStorage.removeItem('token');
+                                localStorage.removeItem('refreshToken');
+                                localStorage.removeItem('teacherId');
+                                loggedIn.set(false);
+                                teacherId.set(0);
+                                needsrefresh = false;
+                            } else {
+                                alert(error.message);
+                            }
                         }
                     }
                 }
