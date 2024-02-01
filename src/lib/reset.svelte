@@ -46,8 +46,12 @@
     }
 
     async function reset() {
-        if (!resetcode || !resetpass || !passconfirm || !resetemail) {
+        if (!resetpass || !passconfirm || !resetemail) {
             incomplete = true;
+            return;
+        }
+        if (!resetcode) {
+            status = 408;
             return;
         }
         incomplete = false;
@@ -171,7 +175,10 @@
             <p style="color: red;">{"passwords don't match"}</p>
         {/if}
         {#if status == 406}
-            <p style="color: red;">{"not ensam email"}</p>
+            <p style="color: red;">not ensam email</p>
+        {/if}
+        {#if status == 408}
+            <p style="color: red;">please verify you email</p>
         {/if}
         </div>
     {/if}
