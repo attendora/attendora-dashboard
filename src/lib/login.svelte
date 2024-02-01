@@ -1,12 +1,16 @@
 <script lang="ts">
-    import { loggedIn, sideBarSwitch, signin} from './store.js';
+    import { loggedIn, sideBarSwitch, resetstatus} from './store.js';
     import axios from 'axios';
+    import Reset from './reset.svelte';
+
     let teacherId: string;
     let password: string;
     let incomplete: boolean = false;
     const authServer:string =import.meta.env.VITE_AUTH_SERVER;
     let promise:Promise<void>;
     let status:number;
+
+    
 
     async function login() {
         if (!teacherId || !password) {
@@ -34,24 +38,9 @@
         }
     }
 
-    async function forgotPassword() {
-        if (!teacherId) {
-            incomplete = true;
-            return;
-        }
-        incomplete = false;
-        const response = await axios.post(authServer+'/forgotPassword', {
-            "teacherId": teacherId
-        });
-        const data = await response.data
-        status = response.status;
 
-        if (data.success) {
-            alert(data.message);
-        } else {
-            alert(data.message);
-        }
-    }
+
+
 </script>
 
 <div class="login">
@@ -68,7 +57,10 @@
     {#if incomplete}
         <p style="color: red;">Please fill out all fields</p>
     {/if}
-    <form on:submit|preventDefault={()=> promise = login()} on:reset|preventDefault={()=> promise = forgotPassword()}>
+    {#if $resetstatus}
+        <p style="color: green;">Password reset successfully! Please login with your new password</p>
+    {/if}
+    <form on:submit|preventDefault={()=> promise = login()}>
         
         <input type="text" placeholder="Teacher ID" bind:value={teacherId} />
         <br>
@@ -76,6 +68,8 @@
         <br>
         <br>
         <button type="submit">login</button>
-        <button type="reset">Reset Password</button>
+        <br>
     </form>
+    <br>
+    <Reset />
 </div>
