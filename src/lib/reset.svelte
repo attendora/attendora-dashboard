@@ -81,6 +81,14 @@
         }
     }
 
+    function checkpass() {
+        if (passconfirm!=""){
+            resetpass==passconfirm?confirmclass="identical":confirmclass="notIdentical";
+        } else {
+            confirmclass="normal";
+        }
+    }
+
 </script>
 
 <style>
@@ -126,33 +134,31 @@
         {/if}
         
         <br>
-        <input type="password" bind:value={resetpass} placeholder="new password" />
-        <input type="password" class={confirmclass} bind:value={passconfirm} on:input={()=>{
-            if (passconfirm!=""){
-                resetpass==passconfirm?confirmclass="identical":confirmclass="notIdentical";
-            } else {
-                confirmclass="normal";
-            }}} placeholder="confirm password" />
+        <input type="password" bind:value={resetpass} on:input={checkpass} placeholder="new password" />
+        <input type="password" class={confirmclass} bind:value={passconfirm} on:input={checkpass} placeholder="confirm password" />
         <br>
         <button type="submit">reset</button>
         </form>
         {#await resetpromise}
             processing...
         {:catch Error}
-            {#if Error.message.includes("wrong")}
+            {#if Error.message.includes(405)}
                 <p style="color: red;">wrong code</p>
             {/if}
-            {#if Error.message.includes("expired")}
+            {#if Error.message.includes(404)}
                 <p style="color: red;">expired code</p>
             {/if}
-            {#if Error.message.includes("not registered")}
+            {#if Error.message.includes(401)}
                 <p style="color: red;">not registered</p>
             {/if}
-            {#if Error.message.includes("update")}
+            {#if Error.message.includes(406)}
                 <p style="color: red;">Database Error Try later</p>
             {/if}
-            {#if Error.message.includes("email")}
+            {#if Error.message.includes(503)}
                 <p style="color: red;">email not sent</p>
+            {/if}
+            {#if Error.message.includes(500)}
+                <p style="color: red;">Page error please reload!</p>
             {/if}
         {/await}
         {#if status == 207}
