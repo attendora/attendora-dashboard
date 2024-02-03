@@ -86,7 +86,7 @@
     }
 
     function checkpass() {
-        if (passconfirm!=""){
+        if (passconfirm){
             resetpass==passconfirm?confirmclass="identical":confirmclass="notIdentical";
         } else {
             confirmclass="normal";
