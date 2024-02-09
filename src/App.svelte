@@ -7,6 +7,7 @@
     import Sidebar from './lib/sidebar.svelte';
     import FiliereCount from './lib/dashboard/filiereCount.svelte';
     import StudentCount from './lib/dashboard/studentCount.svelte';
+    import Rfid from './lib/dashboard/rfid.svelte';
     let needsrefresh:boolean = false;
     let promise:Promise<void>;
     let authServer:string =import.meta.env.VITE_AUTH_SERVER;
@@ -113,6 +114,8 @@
         padding: 1em;
     }
 </style>
+
+<Rfid></Rfid>
 
 {#if (!$loggedIn) }
     <div class="identification">
