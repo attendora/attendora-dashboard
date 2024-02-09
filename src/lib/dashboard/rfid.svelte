@@ -14,7 +14,7 @@
 
             ndef.addEventListener("reading", ({ message, serialNumber }) => {
             console.log(`> Serial Number: ${serialNumber}`);
-            console.log(`> Records: (${message.records})`);
+            console.log(`> Records: (${message.records[0]})`);
             dump = message.records.toString()
             });
         } catch (error) {
