@@ -115,7 +115,7 @@
     }
 </style>
 
-<Rfid></Rfid>
+<!-- <Rfid></Rfid> -->
 
 {#if (!$loggedIn) }
     <div class="identification">
