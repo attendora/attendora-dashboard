@@ -8,6 +8,7 @@
     import FiliereCount from './lib/dashboard/filiereCount.svelte';
     import StudentCount from './lib/dashboard/studentCount.svelte';
     import Rfid from './lib/dashboard/rfid.svelte';
+  import SchoolDailyAbsense from './lib/dashboard/charts/schoolDailyAbsense.svelte';
     let needsrefresh:boolean = false;
     let promise:Promise<void>;
     let authServer:string =import.meta.env.VITE_AUTH_SERVER;
@@ -192,6 +193,7 @@
                 {#if $sideBarSwitch == 0}
                     <FiliereCount/>
                     <StudentCount/>
+                    <SchoolDailyAbsense/>
                 {/if}
             </div>
             <div class="graphs">
