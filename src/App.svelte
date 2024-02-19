@@ -193,6 +193,7 @@
                 {#if $sideBarSwitch == 0}
                     <FiliereCount/>
                     <StudentCount/>
+                    test
                     <SchoolDailyAbsense/>
                 {/if}
             </div>
