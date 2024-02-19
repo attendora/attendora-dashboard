@@ -79,6 +79,7 @@
         const chart = new Chart(ctx, {
             type: 'line',
             data: data,
+            // @ts-ignore
             options: options
         });
 
