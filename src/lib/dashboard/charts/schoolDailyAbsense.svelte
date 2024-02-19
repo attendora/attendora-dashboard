@@ -1,6 +1,6 @@
 <script>
     // @ts-ignore
-    import Chart, { Filler } from 'chart.js/auto';
+    import Chart from 'chart.js/auto';
     import axios from 'axios';
     import { onMount } from 'svelte';
 
@@ -29,8 +29,8 @@
                     data: result.data.dataset,
                     backgroundColor: 'rgb(100,96,200,0.5)', // Green
                     borderColor: 'rgb(100,96,200)',
-                    pointRadius: 1,
-                    borderWidth: 1,
+                    pointRadius: 0.5,
+                    borderWidth: 0.5,
                     fill: 'origin',
                     tension: 0.4,
                     plugins: {
