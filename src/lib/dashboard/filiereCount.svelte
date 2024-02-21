@@ -4,7 +4,7 @@
 </script>
 
 <div style="width: 20%; justify-content: center;" >
-    <h2>filiere Count</h2>
+    <h2>Filiere Count</h2>
     {#await axios.post(apiServer+"/filierecount",{
         token: localStorage.getItem('token'),
         teacherId: localStorage.getItem('teacherId')

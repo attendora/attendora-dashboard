@@ -189,7 +189,7 @@
             <div class="header">
                 <h1>ATTENDORA DASHBOARD</h1>           
             </div>
-            <h2>School Stats</h2>
+            <h1>School Stats</h1>
             <div class="quickStats" style="display: flex;">
                 {#if $sideBarSwitch == 0}
                     <FiliereCount/>

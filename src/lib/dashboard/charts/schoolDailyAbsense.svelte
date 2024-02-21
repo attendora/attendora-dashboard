@@ -1,18 +1,18 @@
-<script>
+<script lang="ts">
     // @ts-ignore
-    import Chart from 'chart.js/auto';
+    import Chart, { type ChartOptions } from 'chart.js/auto';
     import axios from 'axios';
     import { onMount } from 'svelte';
+
 
     let apiServer =import.meta.env.VITE_API_SERVER;
 
 
 
     
-    async function createChart() {
+    async function createChart(rdata?:any, rdataset?:any) {
         const canvas = document.getElementById('myChart');
         const result = await axios.get(apiServer+'/dashboard/yearlyabsencebyday');
-        console.log(result.data);
         // let dataArr = [];
         // for (let i = 0; i < 100; i++) {
         //     dataArr.push(Math.floor(Math.random() * 20)+2);
@@ -57,19 +57,13 @@
                     },
                     grid: {
                         display: false
-                    },
-                    axis: {
-                        display: false
                     }
                 },
                 x: {
                     ticks: {
-                        display: false
+                        display: true,
                     },
                     grid: {
-                        display: false
-                    },
-                    axis: {
                         display: false
                     }
                 }
@@ -97,6 +91,6 @@
 </script>
 
 <div style="flex: 0 50%;">
-    <h2>School daily Absences</h2>
+    <h2>Daily Absences</h2>
     <canvas id="myChart"></canvas>
 </div>
