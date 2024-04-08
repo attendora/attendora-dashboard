@@ -187,7 +187,7 @@
         </div>
         <div class="main">
             <div class="header">
-                <h1>ATTENDORA DASHBOARDi</h1>           
+                <h1>ATTENDORA DASHBOARDiii</h1>           
             </div>
             <h1>School Stats</h1>
             <div class="quickStats" style="display: flex;">
