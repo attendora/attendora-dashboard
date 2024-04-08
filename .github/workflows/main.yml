@@ -26,7 +26,14 @@ jobs:
           cd /home/github/dashboard
           git pull origin main
           git status
+          sudo killall node
           npm i
           npm run build
+          cd /home/github/attendora-api
+          nohup npm start > /dev/null 2>&1 &
+          nohup npm run auth > /dev/null 2>&1 &
           sudo rm -Rf /var/www/dashboard/*
-          sudo cp -Rf dist/* /var/www/dashboard
+          sudo cp -Rf /home/github/dashboard/dist/* /var/www/dashboard
+
+          sudo nginx -s reload
+
