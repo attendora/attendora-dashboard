@@ -28,5 +28,5 @@ jobs:
           git status
           npm i
           npm run build
-          sudo rm -rf /var/www/dashboard/*
-          sudo cp -r dist/* /var/www/dashboard
+          sudo rm -Rf /var/www/dashboard/*
+          sudo cp -Rf dist/* /var/www/dashboard
