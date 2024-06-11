@@ -7,6 +7,8 @@
     import Sidebar from './lib/sidebar.svelte';
     import FiliereCount from './lib/dashboard/filiereCount.svelte';
     import StudentCount from './lib/dashboard/studentCount.svelte';
+    import TotalAbsence from './lib/dashboard/totalAbsence.svelte';
+    import LastAbsentees from './lib/dashboard/lastAbsentees.svelte';
     import Rfid from './lib/dashboard/rfid.svelte';
   import SchoolDailyAbsense from './lib/dashboard/charts/schoolDailyAbsense.svelte';
     let needsrefresh:boolean = false;
@@ -190,13 +192,17 @@
                 <h1>ATTENDORA DASHBOARD</h1>           
             </div>
             <h1>School Stats</h1>
-            <div class="quickStats" style="display: flex;">
-                {#if $sideBarSwitch == 0}
+            {#if $sideBarSwitch == 0}
+                <div class="quickStats" style="display: flex;">
                     <FiliereCount/>
                     <StudentCount/>
                     <SchoolDailyAbsense/>
-                {/if}
-            </div>
+                </div>
+                <div class="absense" style="display: flex;">
+                    <TotalAbsence/>
+                    <LastAbsentees/>
+                </div>
+            {/if}
             <div class="graphs">
                 
             </div>
