@@ -71,6 +71,7 @@
         const data = await response.data;
         if (response.status == 200  ) {
             emailstatus = true;
+            rfid = data.nextRFID;
         } else {
             alert(data.message);
         }
@@ -159,7 +160,7 @@
                     <label for="rfid">RFID TAG</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="RFID TAG" bind:value={rfid} />
+                    <input type="text" placeholder="0xxx" bind:value={rfid} />
                 </td>
             </tr>
         </table>
