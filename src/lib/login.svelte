@@ -69,6 +69,7 @@
         <br>
         <button type="submit">login</button>
         <br>
+        <p> Demo: <br> id: 1 / password: 123456</p>
     </form>
     <br>
     <Reset />
